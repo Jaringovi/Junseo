@@ -1,0 +1,59 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.StringTokenizer;
+
+public class Main {
+	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	private static int N;
+	private static int[][] seats;
+	public static void main(String[] args) throws IOException {
+		N = Integer.parseInt(br.readLine());
+		seats = new int[N][N];
+		
+		for(int i = 0; i < N; i++) {
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			for(int j = 0; j < N; j++) {
+				seats[i][j] = Integer.parseInt(st.nextToken());
+			}
+		}
+		
+		if(N == 1) {
+			System.out.println(seats[0][0]);
+			return;
+		}
+		
+		System.out.println(selectNumber(0, 0, N));
+		
+	}
+	
+	static int selectNumber(int x, int y, int size) {
+		List<Integer> lst = new ArrayList<>();
+		if(size == 2) {
+			int[] temp = new int[4];
+			int idx = 0;
+			for(int i = x; i < x + size; i ++) {
+				for(int j = y; j < y + size; j++) {
+					temp[idx++] = seats[i][j];
+				}
+			}
+			Arrays.sort(temp);
+			return temp[1];
+			
+		} else {
+			int tempSize = size / 2;
+			int[] results = new int[4];
+			results[0] = selectNumber(x,y,tempSize);
+			results[1] = selectNumber(x, y + tempSize, tempSize);
+			results[2] = selectNumber(x + tempSize, y, tempSize);
+			results[3] = selectNumber(x + tempSize, y + tempSize, tempSize);
+			Arrays.sort(results);
+			return results[1];
+		}
+	}
+}
+ 
