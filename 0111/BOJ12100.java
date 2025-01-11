@@ -138,4 +138,3 @@ public class Main {
                 answer = Math.max(answer, map[i][j]);
     }
 }
-view rawp12100.java hosted with ❤ by GitHub
